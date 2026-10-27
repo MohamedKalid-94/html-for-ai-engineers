@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Module 03 - Styling Basics</title>
+
+  <!-- 3. EXTERNAL stylesheet: a separate .css file linked here -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- 2. INTERNAL stylesheet: CSS written inside the page -->
+  <style>
+    .internal-demo {
+      color: white;
+      background-color: teal;
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Styling Basics</h1>
+
+  <!-- ========== 1. THREE WAYS TO ADD CSS ========== -->
+  <h2>1. Inline, Internal, External</h2>
+  <p style="color: crimson; font-weight: bold;">Inline: style attribute on this one element.</p>
+  <p class="internal-demo">Internal: rule written in the &lt;style&gt; tag.</p>
+  <p class="external-demo">External: rule loaded from style.css.</p>
+
+  <!-- ========== 2. FONTS ========== -->
+  <h2>2. Fonts</h2>
+  <p style="font-family: Arial, sans-serif;">Arial (sans-serif)</p>
+  <p style="font-family: 'Times New Roman', serif;">Times New Roman (serif)</p>
+  <p style="font-family: 'Courier New', monospace;">Courier New (monospace)</p>
+  <p style="font-size: 24px;">Font size 24px</p>
+  <p style="font-style: italic;">Italic style</p>
+  <p style="font-weight: bold;">Bold weight</p>
+  <p style="text-align: center;">Centered text</p>
+
+  <!-- ========== 3. COLORS: five formats, same idea ========== -->
+  <h2>3. Colors</h2>
+  <p style="color: tomato;">Color name: tomato</p>
+  <p style="color: rgb(0, 128, 0);">RGB: rgb(0, 128, 0)</p>
+  <p style="color: rgba(0, 0, 255, 0.5);">RGBA (50% transparent): rgba(0, 0, 255, 0.5)</p>
+  <p style="color: #8e44ad;">HEX: #8e44ad</p>
+  <p style="color: hsl(30, 100%, 40%);">HSL: hsl(30, 100%, 40%)</p>
+  <p style="color: hsla(200, 80%, 40%, 0.6);">HSLA: hsla(200, 80%, 40%, 0.6)</p>
+
+  <!-- Text color vs background color -->
+  <p style="color: white; background-color: #2c3e50; padding: 8px;">
+    White text on a HEX background
+  </p>
+
+  <!-- ========== 4. BACKGROUNDS ========== -->
+  <h2>4. Backgrounds</h2>
+  <div class="bg-box bg-solid">Solid color background</div>
+  <div class="bg-box bg-gradient">Gradient background</div>
+
+</body>
+</html>
