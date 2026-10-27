@@ -16,7 +16,7 @@ responses, browser storage).
 | 04 | [Images & Media](module-04-images-media/) | Images, image maps, iframes, video, audio, embed, inline SVG, canvas | Done |
 | 05 | [Links & Navigation](module-05-links-navigation/) | Text, image and email links | Done |
 | 06 | [Tables](module-06-tables/) | Headers, captions, styling, colgroup, nesting | Done |
-| 07 | Lists | Unordered, ordered, definition lists | Planned |
+| 07 | [Lists](module-07-lists/) | Unordered, ordered, definition lists | Done |
 | 08 | Forms | Form attributes, controls, input attributes | Planned |
 | 09 | Layout & Responsive | Layout elements, CSS layout, responsiveness, symbols, emojis | Planned |
 | 10 | JavaScript Integration | JavaScript in HTML, DOM | Planned |
