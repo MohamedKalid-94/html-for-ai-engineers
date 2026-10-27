@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Module 06 - Tables</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    h2 { border-bottom: 2px solid #bdc3c7; padding-bottom: 4px; margin-top: 40px; }
+
+    /* Basic border so you can see the table structure */
+    table, th, td { border: 1px solid #7f8c8d; }
+    th, td { padding: 8px 12px; }
+
+    /* ---------- Styled table ---------- */
+    .styled { border-collapse: collapse; width: 100%; }
+    .styled th { background-color: #2c3e50; color: white; text-align: left; }
+    .styled tr:nth-child(even) { background-color: #ecf0f1; }
+    .styled tr:hover { background-color: #d6eaf8; }
+    .styled caption { font-weight: bold; padding: 8px; caption-side: top; }
+    .styled tfoot td { font-weight: bold; background-color: #d5dbdb; }
+
+    /* ---------- Colgroup demo ---------- */
+    .cols { border-collapse: collapse; }
+    .col-name  { background-color: #fdebd0; }
+    .col-score { background-color: #d5f5e3; }
+
+    /* ---------- Scroll wrapper for wide tables on phones ---------- */
+    .scroll { overflow-x: auto; }
+  </style>
+</head>
+<body>
+
+  <h1>Tables</h1>
+
+  <!-- ========== 1. BASIC TABLE ========== -->
+  <h2>1. Basic Table</h2>
+  <table>
+    <tr>
+      <th>Model</th>
+      <th>Type</th>
+    </tr>
+    <tr>
+      <td>BERT</td>
+      <td>Encoder</td>
+    </tr>
+    <tr>
+      <td>GPT</td>
+      <td>Decoder</td>
+    </tr>
+  </table>
+
+  <!-- ========== 2. HEADERS, CAPTION, THEAD/TBODY/TFOOT ========== -->
+  <h2>2. Headers, Caption and Sections</h2>
+  <div class="scroll">
+    <table class="styled">
+      <caption>LLM Comparison (sample data)</caption>
+      <thead>
+        <tr>
+          <th scope="col">Model</th>
+          <th scope="col">Parameters (B)</th>
+          <th scope="col">Context (K tokens)</th>
+          <th scope="col">Open Source</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Model A</th>
+          <td>7</td>
+          <td>32</td>
+          <td>Yes</td>
+        </tr>
+        <tr>
+          <th scope="row">Model B</th>
+          <td>70</td>
+          <td>128</td>
+          <td>Yes</td>
+        </tr>
+        <tr>
+          <th scope="row">Model C</th>
+          <td>400</td>
+          <td>200</td>
+          <td>No</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td>Total models</td>
+          <td colspan="3">3</td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+
+  <!-- ========== 3. COLSPAN AND ROWSPAN ========== -->
+  <h2>3. Colspan and Rowspan</h2>
+  <table class="styled">
+    <tr>
+      <th colspan="2">Training Pipeline</th>
+      <th rowspan="2">Output</th>
+    </tr>
+    <tr>
+      <th>Step</th>
+      <th>Tool</th>
+    </tr>
+    <tr>
+      <td>Data prep</td>
+      <td>Pandas</td>
+      <td rowspan="2">Fine-tuned model</td>
+    </tr>
+    <tr>
+      <td>Training</td>
+      <td>PyTorch</td>
+    </tr>
+  </table>
+
+  <!-- ========== 4. STYLING OPTIONS ========== -->
+  <h2>4. Table Styling</h2>
+  <table style="border-collapse: separate; border-spacing: 10px; border: 2px dashed teal;">
+    <tr>
+      <th style="background-color: lightblue;">Left aligned (default)</th>
+      <th style="background-color: lightblue;">Centered</th>
+      <th style="background-color: lightblue;">Right aligned</th>
+    </tr>
+    <tr>
+      <td>Text</td>
+      <td style="text-align: center;">Text</td>
+      <td style="text-align: right;">123.45</td>
+    </tr>
+    <tr>
+      <td style="height: 60px; vertical-align: bottom;">Bottom aligned</td>
+      <td style="width: 200px;">Fixed width 200px</td>
+      <td style="background-color: lightyellow;">Cell background</td>
+    </tr>
+  </table>
+
+  <!-- ========== 5. COLGROUP ========== -->
+  <h2>5. Colgroup</h2>
+  <table class="cols">
+    <colgroup>
+      <col class="col-name" style="width: 150px;">
+      <col class="col-score" style="width: 100px;">
+    </colgroup>
+    <tr>
+      <th>Name</th>
+      <th>Score</th>
+    </tr>
+    <tr>
+      <td>Ravi</td>
+      <td>92</td>
+    </tr>
+    <tr>
+      <td>Anita</td>
+      <td>88</td>
+    </tr>
+  </table>
+
+  <!-- ========== 6. NESTED TABLE ========== -->
+  <h2>6. Nested Tables</h2>
+  <table>
+    <tr>
+      <th>Project</th>
+      <th>Details</th>
+    </tr>
+    <tr>
+      <td>RAG Chatbot</td>
+      <td>
+        <!-- A table inside a table cell -->
+        <table>
+          <tr>
+            <th>Component</th>
+            <th>Tool</th>
+          </tr>
+          <tr>
+            <td>Vector DB</td>
+            <td>FAISS</td>
+          </tr>
+          <tr>
+            <td>Framework</td>
+            <td>LangChain</td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+
+</body>
+</html>

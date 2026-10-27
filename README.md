@@ -15,7 +15,7 @@ responses, browser storage).
 | 03 | [Styling Basics](module-03-styling-basics/) | Inline, internal and external CSS, fonts, color formats (name, RGB, HEX, HSL), backgrounds | Done |
 | 04 | [Images & Media](module-04-images-media/) | Images, image maps, iframes, video, audio, embed, inline SVG, canvas | Done |
 | 05 | [Links & Navigation](module-05-links-navigation/) | Text, image and email links | Done |
-| 06 | Tables | Headers, captions, styling, colgroup, nesting | Planned |
+| 06 | [Tables](module-06-tables/) | Headers, captions, styling, colgroup, nesting | Done |
 | 07 | Lists | Unordered, ordered, definition lists | Planned |
 | 08 | Forms | Form attributes, controls, input attributes | Planned |
 | 09 | Layout & Responsive | Layout elements, CSS layout, responsiveness, symbols, emojis | Planned |
