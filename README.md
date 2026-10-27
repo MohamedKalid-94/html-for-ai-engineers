@@ -13,7 +13,7 @@ responses, browser storage).
 | 01 | [Fundamentals](module-01-fundamentals/) | Headings, paragraphs, elements, attributes, formatting, quotations, comments, phrase and code elements | Done |
 | 02 | [Structure](module-02-structure/) | Page skeleton, head element, meta tags, block vs inline, div/span, classes, IDs | Done |
 | 03 | [Styling Basics](module-03-styling-basics/) | Inline, internal and external CSS, fonts, color formats (name, RGB, HEX, HSL), backgrounds | Done |
-| 04 | Images & Media | Images, image maps, iframes, video, audio, SVG, canvas | Planned |
+| 04 | [Images & Media](module-04-images-media/) | Images, image maps, iframes, video, audio, embed, inline SVG, canvas | Done |
 | 05 | Links & Navigation | Text, image and email links | Planned |
 | 06 | Tables | Headers, captions, styling, colgroup, nesting | Planned |
 | 07 | Lists | Unordered, ordered, definition lists | Planned |
@@ -34,9 +34,18 @@ html-for-ai-engineers/
 │   └── index.html
 ├── module-02-structure/
 │   └── index.html
-└── module-03-styling-basics/
+├── module-03-styling-basics/
+│   ├── index.html
+│   └── style.css
+└── module-04-images-media/
     ├── index.html
-    └── style.css
+    ├── images/
+    │   ├── photo.jpg
+    │   └── shapes.svg
+    └── media/
+        ├── sample.mp4
+        ├── sample.mp3
+        └── sample.pdf
 ```
 
 ## How to run locally
