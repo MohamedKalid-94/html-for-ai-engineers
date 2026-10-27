@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Module 04 - Images & Media</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    h2 { border-bottom: 2px solid #bdc3c7; padding-bottom: 4px; }
+  </style>
+</head>
+<body>
+
+  <h1>Images &amp; Media</h1>
+
+  <!-- ========== 1. IMAGES ========== -->
+  <h2>1. Images</h2>
+  <img src="images/photo.jpg" alt="A sample photo" width="300">
+  <p>Same image with a fixed height and a border:</p>
+  <img src="images/photo.jpg" alt="A sample photo" width="150" height="100"
+       style="border: 3px solid #2c3e50;">
+
+  <!-- Image with caption -->
+  <figure>
+    <img src="images/shapes.svg" alt="A blue square and an orange circle" width="300">
+    <figcaption>Figure 1: An SVG file used as an image</figcaption>
+  </figure>
+
+  <!-- Responsive image: never wider than its container -->
+  <img src="images/photo.jpg" alt="Responsive photo" style="max-width: 100%; height: auto;">
+
+  <!-- ========== 2. IMAGE MAP ========== -->
+  <h2>2. Image Map</h2>
+  <p>Click the square or the circle:</p>
+  <img src="images/shapes.svg" alt="Clickable shapes" width="400" height="200" usemap="#shapemap">
+  <map name="shapemap">
+    <area shape="rect"   coords="20,20,180,180" href="#square-info" alt="Square">
+    <area shape="circle" coords="300,100,80"    href="#circle-info" alt="Circle">
+  </map>
+  <p id="square-info">You clicked the <strong>square</strong>.</p>
+  <p id="circle-info">You clicked the <strong>circle</strong>.</p>
+
+  <!-- ========== 3. IFRAME ========== -->
+  <h2>3. Iframe</h2>
+  <p>An iframe shows another page inside this page (here, your Module 02):</p>
+  <iframe src="../module-02-structure/index.html"
+          title="Module 02 inside an iframe"
+          width="100%" height="250"
+          style="border: 2px solid gray;"></iframe>
+
+  <!-- ========== 4. VIDEO ========== -->
+  <h2>4. Video</h2>
+  <video controls width="400" poster="images/photo.jpg">
+    <source src="media/sample.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <!-- ========== 5. AUDIO ========== -->
+  <h2>5. Audio</h2>
+  <audio controls>
+    <source src="media/sample.mp3" type="audio/mpeg">
+    Your browser does not support the audio tag.
+  </audio>
+
+  <!-- ========== 6. EMBED MULTIMEDIA ========== -->
+  <h2>6. Embed</h2>
+  <p>Embedding an external file such as a PDF (use any PDF you add to media/):</p>
+  <embed src="media/sample.pdf" type="application/pdf" width="100%" height="200">
+  <p>Using &lt;object&gt; with fallback content:</p>
+  <object data="media/sample.pdf" type="application/pdf" width="100%" height="200">
+    <p>PDF cannot be displayed. <a href="media/sample.pdf">Download it here</a>.</p>
+  </object>
+
+  <!-- ========== 7. SVG (inline) ========== -->
+  <h2>7. Inline SVG</h2>
+  <svg width="300" height="120" viewBox="0 0 300 120">
+    <rect x="10" y="10" width="100" height="100" fill="tomato"/>
+    <circle cx="170" cy="60" r="45" fill="seagreen"/>
+    <line x1="230" y1="10" x2="290" y2="110" stroke="navy" stroke-width="4"/>
+  </svg>
+
+  <!-- ========== 8. CANVAS ========== -->
+  <h2>8. Canvas</h2>
+  <canvas id="myCanvas" width="300" height="120" style="border: 1px solid #333;">
+    Your browser does not support canvas.
+  </canvas>
+  <script>
+    // Canvas is drawn with JavaScript (covered in Module 10); this is just a preview
+    const canvas = document.getElementById("myCanvas");
+    const ctx = canvas.getContext("2d");
+    ctx.fillStyle = "purple";
+    ctx.fillRect(20, 20, 100, 80);
+    ctx.fillStyle = "gold";
+    ctx.beginPath();
+    ctx.arc(200, 60, 40, 0, Math.PI * 2);
+    ctx.fill();
+  </script>
+
+</body>
+</html>
