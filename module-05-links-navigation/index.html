@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Module 05 - Links & Navigation</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    h2 { border-bottom: 2px solid #bdc3c7; padding-bottom: 4px; }
+    /* Link states */
+    a:link    { color: #2980b9; }
+    a:visited { color: #8e44ad; }
+    a:hover   { color: #e74c3c; text-decoration: underline; }
+    a:active  { color: #27ae60; }
+    .menu a   { margin-right: 12px; }
+    .section  { min-height: 150px; }
+  </style>
+</head>
+<body>
+
+  <h1 id="top">Links &amp; Navigation</h1>
+
+  <!-- Simple menu using in-page bookmarks -->
+  <p class="menu">
+    <a href="#text-links">Text</a> |
+    <a href="#image-links">Image</a> |
+    <a href="#email-links">Email</a> |
+    <a href="#paths">Paths</a> |
+    <a href="#bookmarks">Bookmarks</a>
+  </p>
+
+  <!-- ========== 1. TEXT LINKS ========== -->
+  <h2 id="text-links">1. Text Links</h2>
+  <div class="section">
+    <p><a href="https://developer.mozilla.org">Open MDN (same tab)</a></p>
+    <p><a href="https://developer.mozilla.org" target="_blank" rel="noopener noreferrer">Open MDN (new tab)</a></p>
+    <p><a href="https://developer.mozilla.org" title="Best HTML reference">Link with a tooltip (title)</a></p>
+  </div>
+
+  <!-- ========== 2. IMAGE LINKS ========== -->
+  <h2 id="image-links">2. Image Links</h2>
+  <div class="section">
+    <a href="https://developer.mozilla.org" target="_blank" rel="noopener noreferrer">
+      <img src="images/logo.svg" alt="Logo - click to open MDN" width="100">
+    </a>
+  </div>
+
+  <!-- ========== 3. EMAIL, PHONE AND DOWNLOAD LINKS ========== -->
+  <h2 id="email-links">3. Email, Phone and Download Links</h2>
+  <div class="section">
+    <p><a href="mailto:someone@example.com">Send an email</a></p>
+    <p>
+      <a href="mailto:someone@example.com?subject=Hello&body=Hi%20there">
+        Email with subject and body pre-filled
+      </a>
+    </p>
+    <p><a href="tel:+911234567890">Call +91 12345 67890</a></p>
+    <p><a href="images/logo.svg" download="my-logo.svg">Download the logo</a></p>
+  </div>
+
+  <!-- ========== 4. ABSOLUTE vs RELATIVE PATHS ========== -->
+  <h2 id="paths">4. Absolute vs Relative Paths</h2>
+  <div class="section">
+    <p><a href="https://www.w3.org">Absolute URL (full address)</a></p>
+    <p><a href="about.html">Relative: same folder (about.html)</a></p>
+    <p><a href="pages/contact.html">Relative: sub-folder (pages/contact.html)</a></p>
+    <p><a href="../module-04-images-media/index.html">Relative: up one level (../)</a></p>
+  </div>
+
+  <!-- ========== 5. BOOKMARKS (in-page links) ========== -->
+  <h2 id="bookmarks">5. Bookmarks</h2>
+  <div class="section">
+    <p><a href="#top">Back to top</a></p>
+    <p><a href="about.html#team">Jump to the "Team" section of about.html</a></p>
+  </div>
+
+</body>
+</html>
