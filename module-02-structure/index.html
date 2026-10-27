@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- ========== HEAD: information ABOUT the page (not displayed) ========== -->
+<head>
+  <!-- Character encoding -->
+  <meta charset="UTF-8">
+
+  <!-- Makes the page scale properly on phones -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Description and author (used by search engines) -->
+  <meta name="description" content="Module 02 - HTML page structure, head, meta tags, classes and IDs">
+  <meta name="author" content="Your Name">
+  <meta name="keywords" content="HTML, structure, meta tags, AI engineer">
+
+  <!-- Title shown in the browser tab -->
+  <title>Module 02 - HTML Structure</title>
+
+  <!-- Tiny internal CSS only to make classes and IDs visible (CSS is covered separately) -->
+  <style>
+    .highlight { background-color: yellow; }
+    .card      { border: 1px solid gray; padding: 8px; margin: 8px 0; }
+    #main-title { color: darkblue; }
+    #unique-box { background-color: lightgreen; }
+  </style>
+</head>
+
+<!-- ========== BODY: everything the user sees ========== -->
+<body>
+
+  <h1 id="main-title">HTML Structure</h1>
+
+  <!-- 1. BLOCK ELEMENTS: start on a new line, take full width -->
+  <h2>Block Elements</h2>
+  <div class="card">I am a div (block). I take the full width.</div>
+  <div class="card">I am another div. I start on a new line.</div>
+  <p>A paragraph is also a block element.</p>
+
+  <!-- 2. INLINE ELEMENTS: stay within the line, take only needed width -->
+  <h2>Inline Elements</h2>
+  <p>
+    This sentence has a <span class="highlight">highlighted span</span>
+    and a <a href="#unique-box">link to the box below</a>,
+    all on the same line.
+  </p>
+
+  <!-- 3. CLASSES: reusable, many elements can share one class -->
+  <h2>Classes</h2>
+  <p class="highlight">Paragraph with class "highlight".</p>
+  <div class="card highlight">Div with TWO classes: card and highlight.</div>
+
+  <!-- 4. IDs: unique, only ONE element per page can use an id -->
+  <h2>IDs</h2>
+  <div id="unique-box" class="card">
+    I have a unique id: unique-box.
+  </div>
+
+  <!-- 5. Putting it together: blocks containing inline elements -->
+  <h2>Nesting</h2>
+  <div class="card">
+    <h3>Chat Message</h3>
+    <p><span class="highlight">User:</span> What is RAG?</p>
+    <p><span class="highlight">Assistant:</span> Retrieval-Augmented Generation.</p>
+  </div>
+
+</body>
+</html>
