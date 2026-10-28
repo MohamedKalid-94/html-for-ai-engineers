@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Module 10 - JavaScript Integration</title>
+
+  <!-- 3. EXTERNAL script: separate file. "defer" waits until the HTML is fully loaded -->
+  <script src="script.js" defer></script>
+
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: Arial, sans-serif; margin: 20px; max-width: 760px; }
+    h2 { border-bottom: 2px solid #bdc3c7; padding-bottom: 4px; margin-top: 40px; }
+    button { padding: 8px 14px; margin: 4px 4px 4px 0; cursor: pointer; }
+    input[type="text"] { padding: 8px; width: 60%; }
+    .box { background: #f4f6f8; padding: 12px; border-radius: 8px; margin: 8px 0; }
+    .highlight { background: yellow; font-weight: bold; }
+    .hidden { display: none; }
+
+    /* Chat */
+    #chat-window { height: 220px; overflow-y: auto; background: #f4f6f8; border-radius: 8px; padding: 10px; }
+    .msg { margin: 6px 0; padding: 8px 12px; border-radius: 12px; max-width: 80%; }
+    .msg.user { background: #2980b9; color: white; margin-left: auto; }
+    .msg.bot  { background: #d5dbdb; }
+    #chat-form { display: flex; gap: 8px; margin-top: 8px; }
+    #chat-input { flex: 1; padding: 8px; }
+  </style>
+</head>
+<body>
+
+  <h1>JavaScript Integration</h1>
+  <p>Open the browser console (<kbd>F12</kbd>, then the Console tab) to see the log messages.</p>
+
+  <!-- ========== 1. THREE WAYS TO ADD JAVASCRIPT ========== -->
+  <h2>1. Three Ways to Add JavaScript</h2>
+  <div class="box">
+    <!-- Inline: JavaScript inside an attribute (avoid in real projects) -->
+    <button onclick="alert('Inline JavaScript!')">Inline (onclick)</button>
+
+    <!-- Internal: <script> in the page (code at the bottom of this file) -->
+    <button id="btn-internal">Internal script</button>
+
+    <!-- External: script.js file (most of this page) -->
+    <button id="btn-external">External script</button>
+    <p id="way-output">Click a button.</p>
+  </div>
+
+  <!-- ========== 2. DOM: SELECT AND CHANGE ========== -->
+  <h2>2. DOM: Select and Change</h2>
+  <div class="box">
+    <p id="dom-text">This is the original text.</p>
+    <button id="btn-text">Change text</button>
+    <button id="btn-html">Change HTML</button>
+    <button id="btn-style">Change style</button>
+    <button id="btn-class">Toggle class</button>
+    <button id="btn-hide">Show / hide</button>
+    <button id="btn-attr">Change link attribute</button>
+    <p><a id="dom-link" href="https://developer.mozilla.org">MDN link</a></p>
+  </div>
+
+  <!-- ========== 3. EVENTS ========== -->
+  <h2>3. Events</h2>
+  <div class="box">
+    <button id="btn-count">Clicked 0 times</button>
+
+    <p>
+      <label for="live-input">Type here (input event):</label><br>
+      <input type="text" id="live-input" placeholder="Type something...">
+    </p>
+    <p>You typed: <strong id="live-output"></strong> (<span id="live-count">0</span> characters)</p>
+
+    <p id="hover-box" class="box">Hover over me (mouseover and mouseout)</p>
+
+    <form id="greet-form">
+      <input type="text" id="greet-name" placeholder="Your name" required>
+      <button type="submit">Greet me</button>
+    </form>
+    <p id="greet-output"></p>
+  </div>
+
+  <!-- ========== 4. CREATE AND REMOVE ELEMENTS ========== -->
+  <h2>4. Create and Remove Elements</h2>
+  <div class="box">
+    <form id="todo-form">
+      <input type="text" id="todo-input" placeholder="Add a learning goal" required>
+      <button type="submit">Add</button>
+    </form>
+    <ul id="todo-list"></ul>
+  </div>
+
+  <!-- ========== 5. MINI CHAT ========== -->
+  <h2>5. Mini Chat Interface</h2>
+  <div id="chat-window" aria-live="polite"></div>
+  <form id="chat-form">
+    <input type="text" id="chat-input" placeholder="Type a message..." required autocomplete="off">
+    <button type="submit">Send</button>
+  </form>
+
+  <!-- 2. INTERNAL script: written directly in the page, placed at the end of the body -->
+  <script>
+    document.getElementById("btn-internal").addEventListener("click", function () {
+      document.getElementById("way-output").textContent = "Internal script ran.";
+    });
+  </script>
+
+</body>
+</html>

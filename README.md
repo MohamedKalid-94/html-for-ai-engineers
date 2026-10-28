@@ -19,7 +19,7 @@ responses, browser storage).
 | 07 | [Lists](module-07-lists/) | Unordered, ordered, definition lists | Done |
 | 08 | [Forms](module-08-forms/) | Form attributes, controls, input attributes | Planned |
 | 09 | [Layout & Responsive](module-09-layout-responsive/) | Layout elements, CSS layout, responsiveness, symbols, emojis | Planned |
-| 10 | JavaScript Integration | JavaScript in HTML, DOM | Planned |
+| 10 | [JavaScript Integration](module-10-javascript-integration/) | JavaScript in HTML, DOM | Planned |
 | 11 | Modern HTML APIs | Geolocation, drag and drop, web workers, WebSocket, web storage, SSE, IndexedDB, CORS, WebRTC | Planned |
 | 12 | Accessibility & Best Practices | Style guide, validation | Planned |
 
