@@ -152,7 +152,7 @@ The reusable checklist is in
 
 ## Notes
 
-- Modules 01 to 10 and 12 run as plain static pages on  Pages.
+- Modules 01 to 10 and 12 run as plain static pages on GitHub Pages.
 - In Module 11, demos 07 to 09 need the FastAPI server running locally on port 8000.
 
 ## What I learned
