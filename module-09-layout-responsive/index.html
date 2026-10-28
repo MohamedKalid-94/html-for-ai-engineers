@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- Required for responsive design on phones -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Module 09 - Layout & Responsive</title>
+  <style>
+    /* Reset: makes width calculations predictable */
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      color: #2c3e50;
+    }
+
+    /* ========== PAGE LAYOUT (CSS Grid) ========== */
+    .page {
+      display: grid;
+      grid-template-areas:
+        "header header"
+        "nav    main"
+        "footer footer";
+      grid-template-columns: 200px 1fr;
+      grid-template-rows: auto 1fr auto;
+      min-height: 100vh;
+    }
+
+    header { grid-area: header; background: #2c3e50; color: white; padding: 16px 24px; }
+    nav    { grid-area: nav;    background: #ecf0f1; padding: 16px; }
+    main   { grid-area: main;   padding: 24px; }
+    footer { grid-area: footer; background: #34495e; color: white; padding: 12px 24px; text-align: center; }
+
+    nav ul { list-style: none; margin: 0; padding: 0; }
+    nav li { margin-bottom: 8px; }
+    nav a  { color: #2980b9; text-decoration: none; }
+    nav a:hover { text-decoration: underline; }
+
+    h2 { border-bottom: 2px solid #bdc3c7; padding-bottom: 4px; margin-top: 36px; }
+
+    /* ========== FLEXBOX: cards in a row ========== */
+    .cards {
+      display: flex;
+      flex-wrap: wrap;          /* cards drop to the next line when space runs out */
+      gap: 16px;
+    }
+    .card {
+      flex: 1 1 180px;          /* grow, shrink, minimum width 180px */
+      background: #eaf2f8;
+      border: 1px solid #aed6f1;
+      border-radius: 8px;
+      padding: 16px;
+    }
+
+    /* Flexbox centering */
+    .center-box {
+      display: flex;
+      justify-content: center;  /* horizontal */
+      align-items: center;      /* vertical */
+      height: 100px;
+      background: #fdebd0;
+      border-radius: 8px;
+    }
+
+    /* ========== GRID: auto-fitting columns ========== */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 12px;
+    }
+    .grid div { background: #d5f5e3; padding: 20px; text-align: center; border-radius: 8px; }
+
+    /* ========== ARTICLE + ASIDE inside main ========== */
+    .content-row { display: flex; gap: 24px; flex-wrap: wrap; }
+    article { flex: 3 1 300px; }
+    aside   { flex: 1 1 180px; background: #fef9e7; padding: 12px; border-radius: 8px; }
+
+    /* ========== RESPONSIVE: images and media queries ========== */
+    img { max-width: 100%; height: auto; }
+
+    /* Tablet and phone: stack the layout in one column */
+    @media (max-width: 700px) {
+      .page {
+        grid-template-areas:
+          "header"
+          "nav"
+          "main"
+          "footer";
+        grid-template-columns: 1fr;
+      }
+      nav ul { display: flex; flex-wrap: wrap; gap: 12px; }
+      nav li { margin-bottom: 0; }
+    }
+
+    /* Show current size indicator */
+    .size-label::after { content: "Wide screen (more than 700px)"; font-weight: bold; color: #27ae60; }
+    @media (max-width: 700px) {
+      .size-label::after { content: "Narrow screen (700px or less)"; color: #e74c3c; }
+    }
+
+    /* Symbols table */
+    table { border-collapse: collapse; }
+    th, td { border: 1px solid #7f8c8d; padding: 6px 12px; }
+    th { background: #2c3e50; color: white; }
+  </style>
+</head>
+<body>
+
+  <div class="page">
+
+    <!-- ========== LAYOUT ELEMENTS ========== -->
+    <header>
+      <h1>Layout &amp; Responsive</h1>
+    </header>
+
+    <nav>
+      <ul>
+        <li><a href="#layout-elements">Layout elements</a></li>
+        <li><a href="#flexbox">Flexbox</a></li>
+        <li><a href="#grid">Grid</a></li>
+        <li><a href="#responsive">Responsive</a></li>
+        <li><a href="#symbols">Symbols</a></li>
+        <li><a href="#emojis">Emojis</a></li>
+      </ul>
+    </nav>
+
+    <main>
+
+      <section id="layout-elements">
+        <h2>1. Semantic Layout Elements</h2>
+        <div class="content-row">
+          <article>
+            <h3>Article</h3>
+            <p>An <code>&lt;article&gt;</code> is self-contained content, such as a blog post or news item.
+               This page itself uses <code>header</code>, <code>nav</code>, <code>main</code>,
+               <code>section</code>, <code>article</code>, <code>aside</code> and <code>footer</code>.</p>
+          </article>
+          <aside>
+            <h3>Aside</h3>
+            <p>Side content related to the main text: tips, ads, related links.</p>
+          </aside>
+        </div>
+      </section>
+
+      <section id="flexbox">
+        <h2>2. Layout with Flexbox</h2>
+        <p>Resize the window and watch the cards wrap:</p>
+        <div class="cards">
+          <div class="card"><h3>Card 1</h3><p>Prompting</p></div>
+          <div class="card"><h3>Card 2</h3><p>RAG</p></div>
+          <div class="card"><h3>Card 3</h3><p>Agents</p></div>
+          <div class="card"><h3>Card 4</h3><p>Fine-tuning</p></div>
+        </div>
+        <p>Centering with Flexbox:</p>
+        <div class="center-box">Perfectly centered</div>
+      </section>
+
+      <section id="grid">
+        <h2>3. Layout with Grid</h2>
+        <div class="grid">
+          <div>1</div><div>2</div><div>3</div>
+          <div>4</div><div>5</div><div>6</div>
+        </div>
+      </section>
+
+      <section id="responsive">
+        <h2>4. Responsiveness</h2>
+        <p class="size-label">Current layout: </p>
+        <ul>
+          <li>The viewport meta tag lets phones use their real width.</li>
+          <li>Flexbox and Grid wrap and resize on their own.</li>
+          <li>A media query at 700px stacks the page into a single column.</li>
+          <li>Images use <code>max-width: 100%</code> so they never overflow.</li>
+        </ul>
+      </section>
+
+      <section id="symbols">
+        <h2>5. Symbols (HTML Entities)</h2>
+        <table>
+          <tr><th>Symbol</th><th>Entity name</th><th>Entity number</th><th>Typed as</th></tr>
+          <tr><td>&lt;</td><td>&amp;lt;</td><td>&amp;#60;</td><td>less than</td></tr>
+          <tr><td>&gt;</td><td>&amp;gt;</td><td>&amp;#62;</td><td>greater than</td></tr>
+          <tr><td>&amp;</td><td>&amp;amp;</td><td>&amp;#38;</td><td>ampersand</td></tr>
+          <tr><td>&quot;</td><td>&amp;quot;</td><td>&amp;#34;</td><td>double quote</td></tr>
+          <tr><td>&copy;</td><td>&amp;copy;</td><td>&amp;#169;</td><td>copyright</td></tr>
+          <tr><td>&reg;</td><td>&amp;reg;</td><td>&amp;#174;</td><td>registered</td></tr>
+          <tr><td>&euro;</td><td>&amp;euro;</td><td>&amp;#8364;</td><td>euro</td></tr>
+          <tr><td>&#8377;</td><td>(none)</td><td>&amp;#8377;</td><td>rupee</td></tr>
+          <tr><td>&rarr;</td><td>&amp;rarr;</td><td>&amp;#8594;</td><td>right arrow</td></tr>
+          <tr><td>&hearts;</td><td>&amp;hearts;</td><td>&amp;#9829;</td><td>heart</td></tr>
+        </table>
+        <p>Non-breaking space: Hello&nbsp;&nbsp;&nbsp;&nbsp;World (four &amp;nbsp; in a row).</p>
+      </section>
+
+      <section id="emojis">
+        <h2>6. Emojis</h2>
+        <p style="font-size: 32px;">
+          &#128512; &#128640; &#129302; &#128187; &#127881;
+        </p>
+        <p>Emojis are just characters. Use the decimal code (<code>&amp;#128640;</code>),
+           or paste the emoji directly because the page uses UTF-8: &#x1F680; 🤖 💡 ✅</p>
+        <p>Add <code>role="img"</code> and <code>aria-label</code> so screen readers can describe them:
+           <span role="img" aria-label="rocket">🚀</span></p>
+      </section>
+
+    </main>
+
+    <footer>
+      &copy; 2026 HTML for AI Engineers &middot; Module 09
+    </footer>
+
+  </div>
+
+</body>
+</html>
