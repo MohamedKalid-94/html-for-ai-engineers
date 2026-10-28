@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Geolocation API</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <p><a href="index.html">&larr; Module 11</a></p>
+  <h1>Geolocation API</h1>
+  <p class="note">Works only on https:// pages or localhost. The browser asks the user for permission.</p>
+
+  <button id="locate">Get my location once</button>
+  <button id="watch">Start watching</button>
+  <button id="stop">Stop watching</button>
+  <pre id="out" class="log">Click a button.</pre>
+
+  <script>
+    const out = document.getElementById("out");
+    const options = { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 };
+    let watchId = null;
+
+    function show(position) {
+      const c = position.coords;
+      out.textContent =
+        `Latitude:  ${c.latitude}\n` +
+        `Longitude: ${c.longitude}\n` +
+        `Accuracy:  ${Math.round(c.accuracy)} m\n` +
+        `Time:      ${new Date(position.timestamp).toLocaleTimeString()}`;
+    }
+
+    function fail(error) {
+      const messages = { 1: "Permission denied.", 2: "Position unavailable.", 3: "Request timed out." };
+      out.textContent = "Error: " + (messages[error.code] || error.message);
+    }
+
+    function supported() {
+      if (!("geolocation" in navigator)) {
+        out.textContent = "Geolocation is not supported by this browser.";
+        return false;
+      }
+      return true;
+    }
+
+    document.getElementById("locate").addEventListener("click", () => {
+      if (supported()) navigator.geolocation.getCurrentPosition(show, fail, options);
+    });
+
+    document.getElementById("watch").addEventListener("click", () => {
+      if (supported() && watchId === null) {
+        watchId = navigator.geolocation.watchPosition(show, fail, options);
+        out.textContent = "Watching for movement...";
+      }
+    });
+
+    document.getElementById("stop").addEventListener("click", () => {
+      if (watchId !== null) {
+        navigator.geolocation.clearWatch(watchId);
+        watchId = null;
+        out.textContent = "Stopped watching.";
+      }
+    });
+  </script>
+</body>
+</html>

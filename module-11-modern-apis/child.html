@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Child</title>
+  <style>body { font-family: Arial, sans-serif; background: #fdebd0; margin: 10px; }</style>
+</head>
+<body>
+  <strong>I am the iframe</strong>
+  <p id="received">Waiting for a message...</p>
+
+  <script>
+    window.addEventListener("message", (event) => {
+      if (event.origin !== window.location.origin) return;   // always verify the sender
+      document.getElementById("received").textContent = `Received: ${event.data}`;
+      event.source.postMessage(`Got it: "${event.data}"`, event.origin);   // reply
+    });
+  </script>
+</body>
+</html>

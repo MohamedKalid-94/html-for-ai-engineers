@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="An accessible example page for AI engineers learning HTML.">
+  <title>Accessible AI Page - Module 12</title>
+
+  <style>
+    :root {
+      --text: #1a1a1a;       /* 16:1 on white */
+      --link: #0b5cad;       /* about 6.5:1 on white */
+      --button-bg: #0b5cad;
+      --button-text: #ffffff;
+      --error: #b00020;
+      --bg: #ffffff;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: Arial, sans-serif;
+      font-size: 1rem;           /* respects the user's browser font size */
+      line-height: 1.6;
+      color: var(--text);
+      background: var(--bg);
+      margin: 0;
+    }
+
+    header, main, footer { max-width: 760px; margin: 0 auto; padding: 16px; }
+    a { color: var(--link); }
+
+    /* ----- Skip link: visible only when focused by keyboard ----- */
+    .skip-link {
+      position: absolute;
+      left: -999px;
+      top: 0;
+      background: #000;
+      color: #fff;
+      padding: 8px 12px;
+    }
+    .skip-link:focus { left: 8px; top: 8px; z-index: 10; }
+
+    /* ----- Text for screen readers only ----- */
+    .visually-hidden {
+      position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
+      overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+    }
+
+    /* ----- Keep a clear focus indicator (never remove it) ----- */
+    :focus-visible { outline: 3px solid #ff9800; outline-offset: 2px; }
+
+    button {
+      background: var(--button-bg);
+      color: var(--button-text);
+      border: none;
+      padding: 10px 16px;
+      font-size: 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    label { display: block; font-weight: bold; margin-top: 12px; }
+    input { padding: 8px; width: 100%; font-size: 1rem; }
+    input[aria-invalid="true"] { border: 2px solid var(--error); }
+    .hint  { color: #555; margin: 4px 0; font-size: 0.9rem; }
+    .error { color: var(--error); margin: 4px 0; font-weight: bold; }
+
+    nav ul { list-style: none; display: flex; gap: 16px; padding: 0; }
+
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #767676; padding: 8px; text-align: left; }
+    th { background: #eef2f7; }
+
+    #chat-log { border: 1px solid #767676; border-radius: 6px; min-height: 80px; padding: 8px; overflow-y: auto; }
+
+    /* ----- Respect users who ask for less motion ----- */
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header>
+    <img src="../module-05-links-navigation/images/logo.svg" alt="AI Learning logo" width="48" height="48">
+    <nav aria-label="Main">
+      <ul>
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#signup">Subscribe</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+    <h1>Accessible AI Page</h1>
+    <p>Read the <a href="CHECKLIST.md">accessibility checklist</a> to apply these rules to every project.</p>
+
+    <!-- ===== Accordion ===== -->
+    <section id="faq" aria-labelledby="faq-title">
+      <h2 id="faq-title">Frequently asked questions</h2>
+      <h3>
+        <button id="faq-btn" aria-expanded="false" aria-controls="faq-panel">What is RAG?</button>
+      </h3>
+      <div id="faq-panel" hidden>
+        <p>Retrieval-Augmented Generation fetches relevant documents first and gives them to a language model.</p>
+      </div>
+    </section>
+
+    <!-- ===== Form ===== -->
+    <section aria-labelledby="signup-title">
+      <h2 id="signup-title">Subscribe to updates</h2>
+      <form id="signup" novalidate>
+        <label for="email">Email address</label>
+        <input type="email" id="email" name="email" required autocomplete="email"
+               aria-describedby="email-hint email-error">
+        <p id="email-hint" class="hint">We will never share your email.</p>
+        <p id="email-error" class="error" role="alert" hidden>Please enter a valid email address.</p>
+        <button type="submit">Subscribe</button>
+      </form>
+      <p id="status" role="status"></p>
+    </section>
+
+    <!-- ===== Table ===== -->
+    <section aria-labelledby="table-title">
+      <h2 id="table-title">Model sizes</h2>
+      <table>
+        <caption>Sample models and their parameter counts</caption>
+        <thead>
+          <tr><th scope="col">Model</th><th scope="col">Parameters</th></tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">Model A</th><td>7B</td></tr>
+          <tr><th scope="row">Model B</th><td>70B</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ===== Chat with live region ===== -->
+    <section aria-labelledby="chat-title">
+      <h2 id="chat-title">Chat</h2>
+      <div id="chat-log" role="log" aria-live="polite" aria-label="Chat messages"></div>
+      <form id="chat-form">
+        <label for="chat-input">Message</label>
+        <input type="text" id="chat-input" autocomplete="off" required>
+        <button type="submit">Send</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <p><small>&copy; 2026 HTML for AI Engineers</small></p>
+  </footer>
+
+  <script>
+    // ----- Accordion: keep aria-expanded in sync with what is visible -----
+    const faqBtn = document.getElementById("faq-btn");
+    const faqPanel = document.getElementById("faq-panel");
+    faqBtn.addEventListener("click", () => {
+      const open = faqBtn.getAttribute("aria-expanded") === "true";
+      faqBtn.setAttribute("aria-expanded", String(!open));
+      faqPanel.hidden = open;
+    });
+
+    // ----- Form: accessible error handling -----
+    const form = document.getElementById("signup");
+    const email = document.getElementById("email");
+    const emailError = document.getElementById("email-error");
+    const status = document.getElementById("status");
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      status.textContent = "";
+
+      if (!email.checkValidity()) {
+        email.setAttribute("aria-invalid", "true");
+        emailError.hidden = false;
+        email.focus();                         // move focus to the problem
+        return;
+      }
+      email.removeAttribute("aria-invalid");
+      emailError.hidden = true;
+      status.textContent = "Thank you. You are subscribed.";   // announced by role="status"
+      form.reset();
+    });
+
+    // ----- Chat: new messages are announced by the live region -----
+    const log = document.getElementById("chat-log");
+    document.getElementById("chat-form").addEventListener("submit", (event) => {
+      event.preventDefault();
+      const input = document.getElementById("chat-input");
+      const text = input.value.trim();
+      if (!text) return;
+
+      const user = document.createElement("p");
+      user.textContent = `You: ${text}`;
+      log.appendChild(user);
+      input.value = "";
+
+      setTimeout(() => {
+        const bot = document.createElement("p");
+        bot.textContent = `Bot: You said "${text}"`;
+        log.appendChild(bot);
+        log.scrollTop = log.scrollHeight;
+      }, 500);
+    });
+  </script>
+</body>
+</html>

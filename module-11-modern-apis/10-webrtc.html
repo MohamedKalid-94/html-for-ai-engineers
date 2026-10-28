@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WebRTC</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <p><a href="index.html">&larr; Module 11</a></p>
+  <h1>WebRTC</h1>
+  <p class="note">Direct peer-to-peer connections for video, audio and data. Real apps need a signaling server to introduce two users. Here both peers live in one page so you can see the full handshake.</p>
+
+  <h2>1. Camera preview (getUserMedia)</h2>
+  <button id="cam-start">Start camera</button>
+  <button id="cam-stop">Stop camera</button>
+  <p><video id="video" width="320" autoplay playsinline muted></video></p>
+
+  <h2>2. Peer-to-peer data channel (two connections in one page)</h2>
+  <button id="connect">Connect peers</button>
+  <input type="text" id="msg" value="Hello peer">
+  <button id="send" disabled>Send</button>
+  <pre id="log" class="log"></pre>
+
+  <script>
+    const log = document.getElementById("log");
+    const write = (text) => { log.textContent += text + "\n"; };
+
+    // ----- 1. Camera -----
+    let stream = null;
+    document.getElementById("cam-start").addEventListener("click", async () => {
+      try {
+        stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        document.getElementById("video").srcObject = stream;
+      } catch (error) {
+        write("Camera error: " + error.message);
+      }
+    });
+    document.getElementById("cam-stop").addEventListener("click", () => {
+      if (stream) stream.getTracks().forEach((track) => track.stop());
+      document.getElementById("video").srcObject = null;
+    });
+
+    // ----- 2. Two peers talking through a data channel -----
+    let channel = null;
+
+    document.getElementById("connect").addEventListener("click", async () => {
+      const peer1 = new RTCPeerConnection();
+      const peer2 = new RTCPeerConnection();
+
+      // Exchange network candidates (normally relayed by a signaling server)
+      peer1.onicecandidate = (e) => e.candidate && peer2.addIceCandidate(e.candidate);
+      peer2.onicecandidate = (e) => e.candidate && peer1.addIceCandidate(e.candidate);
+
+      // Peer 1 creates the channel
+      channel = peer1.createDataChannel("chat");
+      channel.onopen = () => { write("Channel open"); document.getElementById("send").disabled = false; };
+      channel.onmessage = (e) => write("Peer 1 received: " + e.data);
+
+      // Peer 2 receives it and replies
+      peer2.ondatachannel = (e) => {
+        e.channel.onmessage = (ev) => {
+          write("Peer 2 received: " + ev.data);
+          e.channel.send("Reply: " + ev.data.toUpperCase());
+        };
+      };
+
+      // The offer / answer handshake
+      const offer = await peer1.createOffer();
+      await peer1.setLocalDescription(offer);
+      await peer2.setRemoteDescription(offer);
+
+      const answer = await peer2.createAnswer();
+      await peer2.setLocalDescription(answer);
+      await peer1.setRemoteDescription(answer);
+
+      write("Handshake complete");
+    });
+
+    document.getElementById("send").addEventListener("click", () => {
+      if (channel && channel.readyState === "open") {
+        const text = document.getElementById("msg").value;
+        channel.send(text);
+        write("Peer 1 sent: " + text);
+      }
+    });
+  </script>
+</body>
+</html>

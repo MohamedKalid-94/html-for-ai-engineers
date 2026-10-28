@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CORS</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <p><a href="index.html">&larr; Module 11</a></p>
+  <h1>CORS (Cross-Origin Resource Sharing)</h1>
+  <p>This page's origin: <strong id="origin"></strong></p>
+  <p class="note">An origin is protocol + host + port. A page may only read responses from another origin if that server sends permission headers.</p>
+
+  <button id="same">Fetch same-origin file (style.css)</button>
+  <button id="cross">Fetch from http://localhost:8000</button>
+  <pre id="log" class="log"></pre>
+
+  <script>
+    document.getElementById("origin").textContent = window.location.origin;
+    const log = document.getElementById("log");
+
+    document.getElementById("same").addEventListener("click", async () => {
+      const response = await fetch("style.css");
+      log.textContent = `Same origin: status ${response.status}, ${(await response.text()).length} characters. No CORS needed.`;
+    });
+
+    document.getElementById("cross").addEventListener("click", async () => {
+      try {
+        const response = await fetch("http://localhost:8000/api/hello");
+        const data = await response.json();
+        log.textContent = "Cross origin worked:\n" + JSON.stringify(data, null, 2);
+      } catch (error) {
+        log.textContent =
+          "Blocked or failed: " + error.message +
+          "\n\nOpen the Console (F12): a red CORS message means the server did not allow this origin." +
+          "\nIt can also mean server.py is not running.";
+      }
+    });
+  </script>
+</body>
+</html>

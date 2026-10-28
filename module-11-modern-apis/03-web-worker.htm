@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Web Workers API</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <p><a href="index.html">&larr; Module 11</a></p>
+  <h1>Web Workers</h1>
+  <p class="note">Serve through Live Server. Workers do not load from file://. If a run is too quick or too slow on your machine, change the number below.</p>
+
+  <p>Timer (proves whether the page is frozen): <strong id="timer">0</strong></p>
+  <label for="n">Loop count:</label>
+  <input type="text" id="n" value="300000000">
+  <p>
+    <button id="main-btn">Run on main thread (freezes the page)</button>
+    <button id="worker-btn">Run in Web Worker (page stays alive)</button>
+  </p>
+  <pre id="out" class="log">Result will appear here.</pre>
+
+  <script>
+    const out = document.getElementById("out");
+    const getN = () => Number(document.getElementById("n").value) || 100000000;
+
+    // The timer keeps ticking only while the main thread is free
+    let seconds = 0;
+    setInterval(() => { document.getElementById("timer").textContent = ++seconds; }, 1000);
+
+    document.getElementById("main-btn").addEventListener("click", () => {
+      out.textContent = "Calculating on the main thread... the timer will stop.";
+      setTimeout(() => {                       // lets the message paint first
+        const start = performance.now();
+        let sum = 0;
+        for (let i = 0; i < getN(); i++) sum += Math.sqrt(i);
+        out.textContent = `Main thread done in ${Math.round(performance.now() - start)} ms\nResult: ${sum}`;
+      }, 50);
+    });
+
+    document.getElementById("worker-btn").addEventListener("click", () => {
+      const worker = new Worker("worker.js");
+      const start = performance.now();
+      out.textContent = "Calculating in a worker... the timer keeps running.";
+      worker.onmessage = (event) => {
+        out.textContent = `Worker done in ${Math.round(performance.now() - start)} ms\nResult: ${event.data}`;
+        worker.terminate();
+      };
+      worker.onerror = (error) => { out.textContent = "Worker error: " + error.message; };
+      worker.postMessage(getN());
+    });
+  </script>
+</body>
+</html>

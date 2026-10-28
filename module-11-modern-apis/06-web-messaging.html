@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Web Messaging API</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <p><a href="index.html">&larr; Module 11</a></p>
+  <h1>Web Messaging (postMessage)</h1>
+  <p class="note">Safe communication between a page and an iframe (or another window). Serve through Live Server so the origin is a real address.</p>
+
+  <input type="text" id="msg" value="Hello child!">
+  <button id="send">Send to iframe</button>
+  <pre id="log" class="log">Parent log:</pre>
+
+  <iframe id="child" src="child.html" title="Child page" width="100%" height="180"></iframe>
+
+  <script>
+    const log = document.getElementById("log");
+    const child = document.getElementById("child");
+
+    document.getElementById("send").addEventListener("click", () => {
+      // Second argument limits delivery to this exact origin
+      child.contentWindow.postMessage(document.getElementById("msg").value, window.location.origin);
+    });
+
+    window.addEventListener("message", (event) => {
+      if (event.origin !== window.location.origin) return;   // ignore unknown senders
+      log.textContent += `\nFrom child: ${event.data}`;
+    });
+  </script>
+</body>
+</html>

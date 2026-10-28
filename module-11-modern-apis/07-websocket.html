@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WebSocket API</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <p><a href="index.html">&larr; Module 11</a></p>
+  <h1>WebSocket</h1>
+  <p class="note">A permanent two-way connection: the server can push data any time. Start server.py first.</p>
+
+  <p>Status: <strong id="status">Disconnected</strong></p>
+  <button id="connect">Connect</button>
+  <button id="disconnect">Disconnect</button>
+  <p>
+    <input type="text" id="msg" value="Hello server">
+    <button id="send">Send</button>
+  </p>
+  <pre id="log" class="log"></pre>
+
+  <script>
+    const log = document.getElementById("log");
+    const status = document.getElementById("status");
+    let socket = null;
+
+    const write = (text) => { log.textContent += text + "\n"; };
+
+    document.getElementById("connect").addEventListener("click", () => {
+      if (socket && socket.readyState <= 1) return;        // already connecting or open
+      socket = new WebSocket("ws://localhost:8000/ws");     // ws:// (wss:// when using https)
+
+      socket.addEventListener("open",    () => { status.textContent = "Connected"; write("Connected"); });
+      socket.addEventListener("message", (e) => write("Received: " + e.data));
+      socket.addEventListener("close",   () => { status.textContent = "Disconnected"; write("Closed"); });
+      socket.addEventListener("error",   () => write("Error: is server.py running?"));
+    });
+
+    document.getElementById("send").addEventListener("click", () => {
+      if (!socket || socket.readyState !== WebSocket.OPEN) { write("Not connected."); return; }
+      const text = document.getElementById("msg").value;
+      socket.send(text);
+      write("Sent: " + text);
+    });
+
+    document.getElementById("disconnect").addEventListener("click", () => socket && socket.close());
+  </script>
+</body>
+</html>

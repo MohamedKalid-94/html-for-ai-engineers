@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Web Storage API</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <p><a href="index.html">&larr; Module 11</a></p>
+  <h1>Web Storage</h1>
+  <p class="note">localStorage survives closing the browser. sessionStorage lasts only for the current tab. Both store strings only, around 5 MB. Never store passwords or API keys here.</p>
+
+  <div class="box">
+    <h3>1. Remember a setting (localStorage)</h3>
+    <label for="name">Your name:</label>
+    <input type="text" id="name">
+    <button id="save-name">Save</button>
+    <button id="toggle-theme">Toggle dark mode</button>
+    <p id="greeting"></p>
+  </div>
+
+  <div class="box">
+    <h3>2. Count visits in this tab (sessionStorage)</h3>
+    <p id="visits"></p>
+  </div>
+
+  <div class="box">
+    <h3>3. Save chat history as JSON</h3>
+    <input type="text" id="msg" placeholder="Type a message">
+    <button id="add-msg">Add</button>
+    <button id="clear-msg">Clear history</button>
+    <ul id="history"></ul>
+  </div>
+
+  <script>
+    // ----- 1. localStorage -----
+    const nameInput = document.getElementById("name");
+    const greeting = document.getElementById("greeting");
+
+    function showGreeting() {
+      const saved = localStorage.getItem("userName");
+      greeting.textContent = saved ? `Welcome back, ${saved}!` : "No name saved yet.";
+    }
+    document.getElementById("save-name").addEventListener("click", () => {
+      localStorage.setItem("userName", nameInput.value.trim());
+      showGreeting();
+    });
+
+    function applyTheme() {
+      document.body.classList.toggle("dark", localStorage.getItem("theme") === "dark");
+    }
+    document.getElementById("toggle-theme").addEventListener("click", () => {
+      localStorage.setItem("theme", localStorage.getItem("theme") === "dark" ? "light" : "dark");
+      applyTheme();
+    });
+
+    // ----- 2. sessionStorage -----
+    const visits = Number(sessionStorage.getItem("visits") || 0) + 1;
+    sessionStorage.setItem("visits", visits);
+    document.getElementById("visits").textContent = `You loaded this page ${visits} time(s) in this tab.`;
+
+    // ----- 3. JSON in localStorage -----
+    const historyList = document.getElementById("history");
+    const loadHistory = () => JSON.parse(localStorage.getItem("chatHistory") || "[]");
+
+    function renderHistory() {
+      historyList.innerHTML = "";
+      loadHistory().forEach((text) => {
+        const li = document.createElement("li");
+        li.textContent = text;
+        historyList.appendChild(li);
+      });
+    }
+    document.getElementById("add-msg").addEventListener("click", () => {
+      const input = document.getElementById("msg");
+      if (!input.value.trim()) return;
+      const history = loadHistory();
+      history.push(input.value.trim());
+      localStorage.setItem("chatHistory", JSON.stringify(history));
+      input.value = "";
+      renderHistory();
+    });
+    document.getElementById("clear-msg").addEventListener("click", () => {
+      localStorage.removeItem("chatHistory");
+      renderHistory();
+    });
+
+    showGreeting();
+    applyTheme();
+    renderHistory();
+  </script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Drag and Drop API</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .zones { display: flex; gap: 16px; }
+    .zone { flex: 1; min-height: 160px; border: 2px dashed #7f8c8d; border-radius: 8px; padding: 8px; }
+    .zone.over { background: #d6eaf8; border-color: #2980b9; }
+    .item { background: #2980b9; color: white; padding: 8px; margin: 6px 0; border-radius: 6px; cursor: grab; }
+    .item.dragging { opacity: 0.4; }
+    #file-zone { margin-top: 20px; padding: 24px; text-align: center; }
+  </style>
+</head>
+<body>
+  <p><a href="index.html">&larr; Module 11</a></p>
+  <h1>Drag &amp; Drop API</h1>
+
+  <h2>Move items between lists</h2>
+  <div class="zones">
+    <div class="zone" id="todo"><strong>To learn</strong>
+      <div class="item" draggable="true" id="i1">RAG</div>
+      <div class="item" draggable="true" id="i2">Agents</div>
+      <div class="item" draggable="true" id="i3">Fine-tuning</div>
+    </div>
+    <div class="zone" id="done"><strong>Learned</strong></div>
+  </div>
+
+  <h2>Drop files</h2>
+  <div class="zone" id="file-zone">Drop files here</div>
+  <pre id="file-out" class="log">No files yet.</pre>
+
+  <script>
+    // ----- Moving items -----
+    document.querySelectorAll(".item").forEach((item) => {
+      item.addEventListener("dragstart", (e) => {
+        e.dataTransfer.setData("text/plain", item.id);   // what is being dragged
+        item.classList.add("dragging");
+      });
+      item.addEventListener("dragend", () => item.classList.remove("dragging"));
+    });
+
+    document.querySelectorAll("#todo, #done").forEach((zone) => {
+      zone.addEventListener("dragover", (e) => {
+        e.preventDefault();                               // required, otherwise drop is refused
+        zone.classList.add("over");
+      });
+      zone.addEventListener("dragleave", () => zone.classList.remove("over"));
+      zone.addEventListener("drop", (e) => {
+        e.preventDefault();
+        zone.classList.remove("over");
+        const id = e.dataTransfer.getData("text/plain");
+        zone.appendChild(document.getElementById(id));
+      });
+    });
+
+    // ----- Dropping files -----
+    const fileZone = document.getElementById("file-zone");
+    const fileOut = document.getElementById("file-out");
+
+    fileZone.addEventListener("dragover", (e) => { e.preventDefault(); fileZone.classList.add("over"); });
+    fileZone.addEventListener("dragleave", () => fileZone.classList.remove("over"));
+    fileZone.addEventListener("drop", (e) => {
+      e.preventDefault();
+      fileZone.classList.remove("over");
+      const lines = [...e.dataTransfer.files].map(
+        (f) => `${f.name}  |  ${f.type || "unknown type"}  |  ${(f.size / 1024).toFixed(1)} KB`
+      );
+      fileOut.textContent = lines.join("\n") || "No files dropped.";
+    });
+  </script>
+</body>
+</html>

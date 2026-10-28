@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Server-Sent Events</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <p><a href="index.html">&larr; Module 11</a></p>
+  <h1>Server-Sent Events (streaming)</h1>
+  <p class="note">One-way stream from server to browser over plain HTTP. This is how chat UIs show an answer word by word. Start server.py first.</p>
+
+  <input type="text" id="prompt" value="What is RAG?">
+  <button id="start">Ask</button>
+  <p id="state" class="note"></p>
+  <div id="answer" class="box" style="min-height: 80px;"></div>
+
+  <script>
+    let source = null;
+
+    document.getElementById("start").addEventListener("click", () => {
+      if (source) source.close();
+
+      const prompt = encodeURIComponent(document.getElementById("prompt").value);
+      const answer = document.getElementById("answer");
+      const state = document.getElementById("state");
+      answer.textContent = "";
+      state.textContent = "Streaming...";
+
+      source = new EventSource(`http://localhost:8000/stream?prompt=${prompt}`);
+
+      // Default events: one word each
+      source.onmessage = (event) => { answer.textContent += event.data + " "; };
+
+      // Custom event sent by the server when it is finished
+      source.addEventListener("done", () => {
+        source.close();                         // without this, EventSource reconnects automatically
+        state.textContent = "Finished.";
+      });
+
+      source.onerror = () => {
+        source.close();
+        state.textContent = "Connection error: is server.py running?";
+      };
+    });
+  </script>
+</body>
+</html>
