@@ -17,7 +17,7 @@ responses, browser storage).
 | 05 | [Links & Navigation](module-05-links-navigation/) | Text, image and email links | Done |
 | 06 | [Tables](module-06-tables/) | Headers, captions, styling, colgroup, nesting | Done |
 | 07 | [Lists](module-07-lists/) | Unordered, ordered, definition lists | Done |
-| 08 | Forms | Form attributes, controls, input attributes | Planned |
+| 08 | [Forms](module-08-forms/) | Form attributes, controls, input attributes | Planned |
 | 09 | Layout & Responsive | Layout elements, CSS layout, responsiveness, symbols, emojis | Planned |
 | 10 | JavaScript Integration | JavaScript in HTML, DOM | Planned |
 | 11 | Modern HTML APIs | Geolocation, drag and drop, web workers, WebSocket, web storage, SSE, IndexedDB, CORS, WebRTC | Planned |
